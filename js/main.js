@@ -28,7 +28,7 @@ do {
             prendaElegida = "blusa";
             break;
         case 3:
-            prendaElegida = "pantalon";
+            prendaElegida = "pantalón";
             break;
         case 4:
             prendaElegida = "remera";
