@@ -22,7 +22,7 @@ do {
     /// determinar la prenda seleccionada
     switch (opcion) {
         case 1:
-            prendaElegida = "vestido";
+            prendaElegida = "vestiido";
             break;
         case 2:
             prendaElegida = "blusa";
@@ -52,4 +52,4 @@ do {
 } while (continuar === "si");
 
 // Mostrar toda la compra
-alert("El total de su compra es: $" + totalCompra  + ". Gracias por su compra!");
+alert("El total de su compra es: $" + totalCompra  + ". Gracias por su compra!!");
