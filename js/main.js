@@ -52,4 +52,4 @@ do {
 } while (continuar === "si");
 
 // Mostrar toda la compra
-alert("El total de su compra es: $" + totalCompra  + ". Gracias por su compra!!");
+alert("El total de su compra es: $" + totalCompra  + ". ¡Gracias por su compra!");
