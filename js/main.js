@@ -45,11 +45,11 @@ do {
         // Agregar el precio de la prenda seleccionada al total de la compra
         totalCompra += precios[prendaElegida];
         alert("Ha seleccionado " + prendaElegida + ". Precio: $" + precios[prendaElegida]);
-    }
+      }
 
     var continuar = prompt("¿Desea seleccionar otras prendas? (Si/No)").toLowerCase();
 
 } while (continuar === "si");
 
 // Mostrar toda la compra
-alert("El total de su compra es: $" + totalCompra  + ". ¡Gracias por su compra!");
+alert("El total de su compra es: $" + totalCompra  + ". Gracias por su compra!");
