@@ -22,13 +22,13 @@ do {
     /// determinar la prenda seleccionada
     switch (opcion) {
         case 1:
-            prendaElegida = "vestiido";
+            prendaElegida = "vestido";
             break;
         case 2:
             prendaElegida = "blusa";
             break;
         case 3:
-            prendaElegida = "pantalón";
+            prendaElegida = "pantalon";
             break;
         case 4:
             prendaElegida = "remera";
