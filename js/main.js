@@ -2,24 +2,18 @@
 let nombreUsuario = prompt("Ingrese su nombre por favor:");
 alert("Bienvenido " + nombreUsuario + ".");
 
-// precios prendas
-const precios = {
-    vestido: 12000,
-    blusa: 9000,
-    pantalón: 13500,
-    remera: 18000,
-    cartera: 23000
-};
+// Precios de prendas
+const precioVestido = 12000;
+const precioBlusa = 9000;
+const precioPantalon = 13500;
+const precioRemera = 18000;
+const precioCartera = 23000;
 
-let totalCompra = 0; // almacenar compra
+let totalCompra = 0; // Almacenar el total de la compra
 
-do {
-    let opcion = parseInt(prompt("Seleccione la prenda que desea comprar: \n1. Vestidos \n2. Blusas \n3. Pantalones \n4. Remeras \n5. Carteras"));
-
-    // almacenar el nombre de la prenda que se selecciona
+// Función para determinar el nombre de la prenda seleccionada
+function determinarPrenda(opcion) {
     let prendaElegida;
-
-    /// determinar la prenda seleccionada
     switch (opcion) {
         case 1:
             prendaElegida = "vestido";
@@ -39,17 +33,44 @@ do {
         default:
             alert("Opción inválida. Por favor, seleccione una opción válida.");
     }
+    return prendaElegida;
+}
 
-    // ver si se seleccionó una prenda válida
+let continuar 
+
+do {
+    let opcion = parseInt(prompt("Seleccione la prenda que desea comprar: \n1. Vestidos \n2. Blusas \n3. Pantalones \n4. Remeras \n5. Carteras"));
+    let cantidad = parseInt(prompt("Ingrese la cantidad de prendas que desea comprar:"));
+
+    let prendaElegida = determinarPrenda(opcion);
+
     if (prendaElegida) {
-        // Agregar el precio de la prenda seleccionada al total de la compra
-        totalCompra += precios[prendaElegida];
-        alert("Ha seleccionado " + prendaElegida + ". Precio: $" + precios[prendaElegida]);
-      }
+        // Calcular el subtotal de la compra
+        let subtotal = 0;
+        switch (prendaElegida) {
+            case "vestido":
+                subtotal = precioVestido * cantidad;
+                break;
+            case "blusa":
+                subtotal = precioBlusa * cantidad;
+                break;
+            case "pantalón":
+                subtotal = precioPantalon * cantidad;
+                break;
+            case "remera":
+                subtotal = precioRemera * cantidad;
+                break;
+            case "cartera":
+                subtotal = precioCartera * cantidad;
+                break;
+        }
+        totalCompra += subtotal; // Agregar el subtotal al total de la compra
+        alert("Ha seleccionado " + cantidad + " " + prendaElegida + "(s). Subtotal: $" + subtotal);
+    }
 
-    var continuar = prompt("¿Desea seleccionar otras prendas? (Si/No)").toLowerCase();
+   continuar = prompt("¿Desea seleccionar otras prendas? (Si/No)").toLowerCase();
 
 } while (continuar === "si");
 
-// Mostrar toda la compra
-alert("El total de su compra es: $" + totalCompra  + ". ¡Gracias por su compra!");
+// Mostrar el total de la compra
+alert("El total de su compra es: $" + totalCompra + ". ¡Gracias por su compra!");
