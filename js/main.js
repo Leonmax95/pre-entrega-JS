@@ -1,4 +1,4 @@
-// arrays para almacenar informacion de las prendas
+
 let prendas = [
     { nombre: "Vestidos", precio: 12000, cantidad: 50 },
     { nombre: "Blusas", precio: 9000, cantidad: 30 },
@@ -7,51 +7,60 @@ let prendas = [
     { nombre: "Carteras", precio: 23000, cantidad: 15 }
 ];
 
-// funcion para buscar una prenda por nombre
+
 function buscarPrenda(nombre) {
     return prendas.find(prenda => prenda.nombre.toLowerCase() === nombre.toLowerCase());
 }
 
-// función para filtrar prendas por precio máximo
+
 function filtrarPorPrecioMaximo(precioMaximo) {
     return prendas.filter(prenda => prenda.precio <= precioMaximo);
 }
 
-// objeto para almacenar la información del usuario
 let usuario = {
     nombre: "",
     registrado: false
 };
 
-// funcion para registrar al usuario
 function registrarUsuario() {
-    usuario.nombre = prompt("Ingrese su nombre por favor:");
+    let nombre;
+    let regex = /^[a-zA-Z\s]*$/; 
+
+    do {
+        nombre = prompt("Ingrese su nombre por favor:");
+        if (!regex.test(nombre) || nombre.trim() === "") {
+            alert("Por favor, ingrese un nombre válido. No se permiten números ni caracteres especiales.");
+        }
+    } while (!regex.test(nombre) || nombre.trim() === "");
+
+    usuario.nombre = nombre;
     usuario.registrado = true;
     alert("¡Bienvenido " + usuario.nombre + "! Gracias por registrarte.");
 }
 
-// verificar si el usuario está registrado
+
 if (!usuario.registrado) {
     registrarUsuario();
 }
 
-// solicitar al usuario que indique su presupuesto máximo
-let presupuestoMaximo = parseInt(prompt("Ingrese su presupuesto máximo para la compra:"));
 
-// Filtrar las prendas disponibles según el presupuesto máximo
-let prendasDisponibles = filtrarPorPrecioMaximo(presupuestoMaximo);
+function obtenerPresupuesto() {
+    while (true) {
+        const presupuesto = prompt("Ingrese su presupuesto máximo para la compra, mínimo $9000:");
 
-// verificar si hay prendas disponibles después del filtro
-if (prendasDisponibles.length === 0) {
-    alert("Lo sentimos, no hay prendas disponibles dentro de su presupuesto máximo.");
-} else {
-    // Mostrar las prendas disponibles dentro del presupuesto máximo en un listado
-    let mensajePrendas = "Prendas disponibles dentro de su presupuesto máximo de $" + presupuestoMaximo + ":\n";
-    for (let prenda of prendasDisponibles) {
-        mensajePrendas += "- " + prenda.nombre + " - Precio: $" + prenda.precio + " - Cantidad disponible: " + prenda.cantidad + "\n";
+        
+        const monto = parseFloat(presupuesto);
+        if (!isNaN(monto) && monto >= 9000) {
+            alert(`¡Excelente! Su presupuesto es de $${monto}. ¡A comprar se ha dicho!`);
+            return monto;
+        } else {
+            alert("Por favor, ingrese un monto válido mayor o igual a 9000.");
+        }
     }
-    alert(mensajePrendas);
 }
+
+// obtener el presupuesto
+let presupuestoMaximo = obtenerPresupuesto();
 
 // Función para determinar el nombre de la prenda elegida
 function determinarPrenda(opcion) {
@@ -72,29 +81,40 @@ function determinarPrenda(opcion) {
     }
 }
 
+let prendasDisponibles = filtrarPorPrecioMaximo(presupuestoMaximo);
+let mensajePrendas = "Prendas disponibles dentro de su presupuesto máximo de $" + presupuestoMaximo + ":\n";
+
+for (let i = 0; i < prendasDisponibles.length; i++) {
+    mensajePrendas += "- " + prendasDisponibles[i].nombre + " - Precio: $" + prendasDisponibles[i].precio + " - Cantidad disponible: " + prendasDisponibles[i].cantidad + "\n";
+}
+
+alert(mensajePrendas);
+
 let continuar;
 
 do {
-    let opcion = parseInt(prompt("Seleccione la prenda que desea comprar: \n1. Vestidos \n2. Blusas \n3. Pantalones \n4. Remeras \n5. Carteras"));
-    let cantidad = parseInt(prompt("Ingrese la cantidad de prendas que desea comprar:"));
-
-    if (isNaN(cantidad) || cantidad <= 0) {
-        alert("Por favor, ingrese una cantidad válida y mayor que cero.");
-        continue; // vuelve al inicio del bucle para seleccionar nuevamente
+    let opcion;
+    do {
+        opcion = parseInt(prompt("Seleccione la prenda que desea comprar: \n1. Vestidos \n2. Blusas \n3. Pantalones \n4. Remeras \n5. Carteras"));
         
-    } else if (cantidad > 50) { // limite 50 unidades
-
-
-        let confirmarCantidad = confirm("ha ingresado una cantidad muy alta. ¿Desea continuar con " + cantidad + " unidades de todas formas?");
-        if (!confirmarCantidad) {
-            continue; // vuelve al inicio del bucle para seleccionar nuevamente
+        if (isNaN(opcion) || opcion < 1 || opcion > 5) {
+            alert("Por favor, ingrese un número válido entre 1 y 5, acorde a la opción de prenda");
         }
-    }
-
-    if (cantidad < 0) {
-        alert("no se pueden seleccionar cantidades negativas.");
-        continue; // vuelve al inicio del bucle para seleccionar nuevamente
-    }
+    } while (isNaN(opcion) || opcion < 1 || opcion > 5);
+    
+    let cantidad;
+    do {
+        cantidad = parseInt(prompt("Ingrese la cantidad de prendas que desea comprar:"));
+    
+        if (isNaN(cantidad) || cantidad <= 0) {
+            alert("Por favor, ingrese una cantidad válida y mayor que cero.");
+        } else if (cantidad > 50) { // límite 50 unidades
+            let confirmarCantidad = confirm(`Ha ingresado una cantidad muy alta (${cantidad} unidades). ¿Desea continuar de todas formas?`);
+            if (!confirmarCantidad) {
+                continue; // vuelve al inicio del bucle para seleccionar nuevamente
+            }
+        }
+    } while (isNaN(cantidad) || cantidad <= 0);
 
     let prendaElegida = determinarPrenda(opcion);
 
@@ -104,14 +124,15 @@ do {
         let prendaEncontrada = buscarPrenda(prendaElegida);
         if (prendaEncontrada) {
             subtotal = prendaEncontrada.precio * cantidad;
-            alert("Ha seleccionado " + cantidad + " " + prendaElegida + "(s). Subtotal: $" + subtotal.toFixed(2));
+            alert(`Ha seleccionado ${cantidad} ${prendaElegida}(s). Subtotal: ${subtotal.toFixed(2)}`);
         } else {
             alert("La prenda seleccionada no está disponible.");
         }
     }
 
-    continuar = prompt("¿Desea seleccionar otras prendas? (Si/No)").toLowerCase();
-
+    do {
+        continuar = prompt("¿Desea seleccionar otras prendas? (Si/No)").toLowerCase();
+    } while (continuar !== "si" && continuar !== "no");
 } while (continuar === "si");
 
 // mostrar el total de la compra
