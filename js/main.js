@@ -108,7 +108,7 @@ do {
     
         if (isNaN(cantidad) || cantidad <= 0) {
             alert("Por favor, ingrese una cantidad válida y mayor que cero.");
-        } else if (cantidad > 50) { // límite 50 unidades
+        } else if (cantidad > 20) { // límite 20 unidades
             let confirmarCantidad = confirm(`Ha ingresado una cantidad muy alta (${cantidad} unidades). ¿Desea continuar de todas formas?`);
             if (!confirmarCantidad) {
                 continue; // vuelve al inicio del bucle para seleccionar nuevamente
@@ -119,17 +119,21 @@ do {
     let prendaElegida = determinarPrenda(opcion);
 
     if (prendaElegida) {
-        // Calcular el subtotal de la compra
-        let subtotal = 0;
         let prendaEncontrada = buscarPrenda(prendaElegida);
         if (prendaEncontrada) {
-            subtotal = prendaEncontrada.precio * cantidad;
-            alert(`Ha seleccionado ${cantidad} ${prendaElegida}(s). Subtotal: ${subtotal.toFixed(2)}`);
+            if (cantidad <= prendaEncontrada.cantidad) {
+                // Calcular el subtotal de la compra
+                let subtotal = prendaEncontrada.precio * cantidad;
+                alert(`Ha seleccionado ${cantidad} ${prendaElegida}(s). Subtotal: ${subtotal.toFixed(2)}`);
+            } else {
+                alert(`Lo sentimos, solo hay ${prendaEncontrada.cantidad} ${prendaElegida}(s) disponibles en stock.`);
+            }
         } else {
             alert("La prenda seleccionada no está disponible.");
         }
     }
 
+    // Preguntar si desea seleccionar otras prendas aquí, fuera del bloque anterior
     do {
         continuar = prompt("¿Desea seleccionar otras prendas? (Si/No)").toLowerCase();
     } while (continuar !== "si" && continuar !== "no");
@@ -137,3 +141,8 @@ do {
 
 // mostrar el total de la compra
 alert("¡Gracias por su compra!");
+
+
+
+
+
