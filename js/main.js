@@ -81,7 +81,7 @@ do {
     if (isNaN(cantidad) || cantidad <= 0) {
         alert("Por favor, ingrese una cantidad válida y mayor que cero.");
         continue; // vuelve al inicio del bucle para seleccionar nuevamente
-    } else if (cantidad > 10) { // limite 10 unidades
+    } else if (cantidad > 50) { // limite 50 unidades
         let confirmarCantidad = confirm("ha ingresado una cantidad muy alta. ¿Desea continuar con " + cantidad + " unidades de todas formas?");
         if (!confirmarCantidad) {
             continue; // vuelve al inicio del bucle para seleccionar nuevamente
