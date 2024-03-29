@@ -6,9 +6,14 @@ const vaciarCarritoBtn = document.getElementById("vaciar-carrito");
 cargarEventListeners();
 
 function cargarEventListeners() {
+    // Eventos de clic
     elementos1.addEventListener("click", comprarElemento);
     carrito.addEventListener("click", eliminarElemento);
     vaciarCarritoBtn.addEventListener("click", vaciarCarrito);
+
+    // Eventos táctiles
+    elementos1.addEventListener("touchstart", comprarElemento);
+    carrito.addEventListener("touchstart", eliminarElemento);
 }
 
 function comprarElemento(e) {
@@ -35,17 +40,14 @@ function insertarCarrito(elemento) {
     <td>
         <img src="${elemento.imagen}" width=100 />
     </td>
-
     <td>
-    ${elemento.titulo}
+        ${elemento.titulo}
     </td>
-
     <td>
-    ${elemento.precio}
+        ${elemento.precio}
     </td>
-
     <td>
-    <a href=# class="borrar" data-id="${elemento.id}">X </a>
+        <a href="#" class="borrar" data-id="${elemento.id}">X</a>
     </td>
     `;
     lista.appendChild(row);
@@ -53,11 +55,8 @@ function insertarCarrito(elemento) {
 
 function eliminarElemento(e) {
     e.preventDefault();
-    let elemento, elementoId;
     if (e.target.classList.contains("borrar")) {
         e.target.parentElement.parentElement.remove();
-        elemento = e.target.parentElement.parentElement;
-        elementoId = elemento.querySelector("a").getAttribute("data-id");
     }
 }
 
