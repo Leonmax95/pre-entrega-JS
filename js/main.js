@@ -1,10 +1,10 @@
 
 let prendas = [
     { nombre: "Vestidos", precio: 12000, cantidad: 50 },
-    { nombre: "Blusas", precio: 9000, cantidad: 30 },
+    { nombre: "Calzados", precio: 9000, cantidad: 30 },
     { nombre: "Pantalones", precio: 13500, cantidad: 40 },
     { nombre: "Remeras", precio: 18000, cantidad: 20 },
-    { nombre: "Carteras", precio: 23000, cantidad: 15 }
+    { nombre: "Mochilas", precio: 23000, cantidad: 15 }
 ];
 
 
@@ -68,13 +68,13 @@ function determinarPrenda(opcion) {
         case 1:
             return "Vestidos";
         case 2:
-            return "Blusas";
+            return "Calzados";
         case 3:
             return "Pantalones";
         case 4:
             return "Remeras";
         case 5:
-            return "Carteras";
+            return "Mochilas";
         default:
             alert("Opción inválida. Por favor, seleccione una opción válida.");
             return null;
@@ -95,7 +95,7 @@ let continuar;
 do {
     let opcion;
     do {
-        opcion = parseInt(prompt("Seleccione la prenda que desea comprar: \n1. Vestidos \n2. Blusas \n3. Pantalones \n4. Remeras \n5. Carteras"));
+        opcion = parseInt(prompt("Seleccione la prenda que desea comprar: \n1. Vestidos \n2. Calzados \n3. Pantalones \n4. Remeras \n5. Mochlas"));
         
         if (isNaN(opcion) || opcion < 1 || opcion > 5) {
             alert("Por favor, ingrese un número válido entre 1 y 5, acorde a la opción de prenda");
